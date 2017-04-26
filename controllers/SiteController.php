@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use Yii;
+use yii\base\Exception;
+use yii\base\UserException;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
 use app\controllers\AppController;
@@ -50,9 +52,9 @@ class SiteController extends AppController
     public function actions()
     {
         return [
-            'error' => [
-                'class' => 'app\controllers\action\MyerrorAction', //yii\web\ErrorAction',
-            ],
+//            'error' => [
+//                'class' => 'app\controllers\action\MyerrorAction', //yii\web\ErrorAction',
+//            ],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
@@ -225,5 +227,60 @@ class SiteController extends AppController
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    /** Errors
+     * @return string
+     */
+    public function actionError()
+    {
+
+        $this->layout = '//error';
+
+        if (($exception = Yii::$app->getErrorHandler()->exception) === null) {
+            // action has been invoked not from error handler, but by direct route, so we display '404 Not Found'
+            $exception = new HttpException(404, Yii::t('yii', 'Page not found.'));
+        }
+
+        switch ($exception->statusCode) {
+            case 404:
+                $code = $exception->statusCode;
+                $name = $exception->getName();
+                $message = $exception->getMessage();
+                $view = '../errors/404';
+                break;
+            default:
+                $view = '../errors/default';
+                if ($exception instanceof HttpException) {
+                    $code = $exception->statusCode;
+                } else {
+                    $code = $exception->getCode();
+                }
+                if ($exception instanceof Exception) {
+                    $name = $exception->getName();
+                } else {
+                    $name = Yii::t('yii', 'Error');
+                }
+                if ($code) {
+                    $name .= " (#$code)";
+                }
+
+                if ($exception instanceof UserException) {
+                    $message = $exception->getMessage();
+                } else {
+                    $message = Yii::t('yii', 'An internal server error occurred.');
+                }
+        }
+
+
+        if (Yii::$app->getRequest()->getIsAjax()) {
+            return "$name: $message";
+        } else {
+            return $this->render($view, [
+                'name' => $name,
+                'message' => $message,
+                'exception' => $exception,
+            ]);
+        }
     }
 }
