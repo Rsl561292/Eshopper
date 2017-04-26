@@ -45,7 +45,11 @@ function showDataInCart(res){
     $('#body_content').html(res);
 }
 
-$('.cart_quantity_delete').on('click',function(e){
+/**
+ * Де .mrDeleteProduct це унікальний ключ по якому буде очищатися подія якщо даний скрипт попаде в ajax
+ */
+$(document).off('click.mrDeleteProduct')
+    .on('click.mrDeleteProduct','.cart_quantity_delete',function(e){
     e.preventDefault();
     var id_del=$(this).data('item');
     $.ajax({
@@ -69,8 +73,8 @@ $('.cart_quantity_delete').on('click',function(e){
 
 
 
-
-$('.cart_quantity_down').on('click',function(e){
+$(document).off('click.mrDownProduct')
+    .on('click.mrDownProduct','.cart_quantity_down',function(e){
     //e.preventDefault();
     var id_product=$(this).data('item');
     $.ajax({
@@ -91,7 +95,8 @@ $('.cart_quantity_down').on('click',function(e){
     return false;
 })
 
-$('.cart_quantity_up').on('click',function(e){
+$(document).off('click.mrUpProduct')
+    .on('click.mrUpProduct','.cart_quantity_up',function(e){
     //e.preventDefault();
     var id_product=$(this).data('item');
     $.ajax({
