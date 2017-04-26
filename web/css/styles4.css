@@ -1,0 +1,89 @@
+
+.category-products  .panel-default .badge {
+    background:none;
+    border-radius: 10px;
+    color: #696763;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    min-width: 10px;
+    padding: 3px 7px;
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+
+/*category menu*/
+.category-products {
+   padding-left: 20px;
+}
+.category-products ul {
+    padding-left: 15px;
+}
+.category-products a, .category-products a:hover{
+    color: #696763;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+
+h4 .notproducts{
+    color: #696763;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/*стиль для посилання бренду в карточці товару*/
+.product-information .detail_brand a, .product-information .detail_brand a:hover{
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #696763;
+}
+.product-information .detail_brand a:hover{
+    text-decoration: underline;
+}
+
+
+/*стиль найменування в товарах, що виводяться у списках*/
+.productinfo p a{
+    background:none;
+    color: #696763;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 5px;
+}
+.productinfo p a:hover{
+    text-decoration: underline;
+}
+
+.productinfo a.add-to-cart{
+    background-color: #F5F5ED;
+    color: #696763;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 5px;
+}
+.productinfo a.add-to-cart:hover{
+    background: #FE980F;
+    color: #fdfdfd;
+    text-decoration: none;
+}
+
+
+
+.table_item_photo img{
+    height: 37px;
+    width: 40px;
+    float: none;
+}
+
+
+#cart_items .container{
+    padding-left: 0;
+    padding-right: 0;
+}
