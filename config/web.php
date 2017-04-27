@@ -23,7 +23,7 @@ $config = [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
-            'exceptionView'=>'@app/views/errors/exception.php',
+            //'exceptionView'=>'@app/views/errors/exception.php',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

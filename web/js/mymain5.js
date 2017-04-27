@@ -75,7 +75,7 @@ $(document).off('click.mrDeleteProduct')
 
 $(document).off('click.mrDownProduct')
     .on('click.mrDownProduct','.cart_quantity_down',function(e){
-    //e.preventDefault();
+    e.preventDefault();
     var id_product=$(this).data('item');
     $.ajax({
         url: '/cart/del_one_unit',
@@ -97,7 +97,7 @@ $(document).off('click.mrDownProduct')
 
 $(document).off('click.mrUpProduct')
     .on('click.mrUpProduct','.cart_quantity_up',function(e){
-    //e.preventDefault();
+    e.preventDefault();
     var id_product=$(this).data('item');
     $.ajax({
         url: '/cart/add_one_unit',

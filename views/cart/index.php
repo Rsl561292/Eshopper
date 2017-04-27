@@ -30,9 +30,9 @@ use yii\helpers\Url;
                                 <td class="cart_price"><p><?=$items['price']?></p></td>
                                 <td class="cart_quantity">
                                     <div class="cart_quantity_button">
-                                        <button class="cart_quantity_down" data-item="<?=$id?>"> - </button>
-                                        <input class="cart_quantity_input" type="text" name="quantity" value="<?=$items['qty']?>" autocomplete="off" size="2">
-                                        <button class="cart_quantity_up" data-item="<?=$id?>"> + </button>
+                                        <a href="<?=Url::to(['cart/del_one_unit','id_product'=>$id])?>" class="cart_quantity_down" data-item="<?=$id?>"> - </a>
+                                            <input class="cart_quantity_input" type="text" name="quantity" value="<?=$items['qty']?>" autocomplete="off" size="2" readonly>
+                                        <a href="<?=Url::to(['cart/add_one_unit','id_product'=>$id])?>" class="cart_quantity_up" data-item="<?=$id?>"> + </a>
                                     </div>
                                 </td>
                                 <td class="cart_total">
@@ -69,8 +69,8 @@ use yii\helpers\Url;
                         </ul>
                     </div>
                 </div>
-                <a class="btn btn-default btn_cart update" href="">Update</a>
-                <a class="btn btn-default btn_cart place_order" href="">Place order</a>
+                <a class="btn btn-default btn_cart update" href="<?=Url::to(['cart/index'])?>">Update page</a>
+                <a class="btn btn-default btn_cart place_order" href="<?=Url::to(['ordersss/place_order'])?>">Place order</a>
                 <a class="btn btn-default btn_cart" href="<?=Url::to(['cart/clear_all_cart'])?>">Clear cart</a>
             </div>
         </div>

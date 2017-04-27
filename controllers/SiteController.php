@@ -52,9 +52,9 @@ class SiteController extends AppController
     public function actions()
     {
         return [
-//            'error' => [
-//                'class' => 'app\controllers\action\MyerrorAction', //yii\web\ErrorAction',
-//            ],
+            'error' => [
+                'class' => 'yii\web\ErrorAction', //app\controllers\action\MyerrorAction
+            ],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
@@ -231,7 +231,7 @@ class SiteController extends AppController
 
     /** Errors
      * @return string
-     */
+
     public function actionError()
     {
 
@@ -282,5 +282,5 @@ class SiteController extends AppController
                 'exception' => $exception,
             ]);
         }
-    }
+    }*/
 }

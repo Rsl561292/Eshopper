@@ -334,7 +334,7 @@ use yii\helpers\Url;
                                                         <?= Html::img('@web/images/products/'.$rec_product['img'],['alt'=>'Image product'])?>
                                                         <h2>$<?=$rec_product['price']?></h2>
                                                         <p><a href="<?=Url::to(['products/view_details','id_product'=>$rec_product['id']])?>" class="product_url"><?=$rec_product['name']?></a></p>
-                                                        <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                                        <a href="<?=Url::to(['cart/add','id_add'=>$rec_product['id']])?>" data-id_add="<?=$rec_product['id']?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                     </div>
                                                 </div>
                                             </div>
