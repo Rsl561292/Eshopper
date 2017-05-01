@@ -40,8 +40,28 @@ class OrderItems extends ActiveRecord
             [['order_id', 'product_id', 'qty_item'], 'integer'],
             [['price', 'sum_item'], 'number'],
             [['name_product'], 'string', 'max' => 255],
+            ['qty_item', 'validateOnZero'],
         ];
     }
 
+    public function validateOnZero($attribute,$params)
+    {
+        if($attribute==0){
+            $this->addError($attribute,'The field can not be zero ');
+        }
+    }
+
+    public function saveAllField($id,$item,$order_id){
+        $this->order_id=$order_id;
+        $this->product_id=$id;
+        $this->name_product=$item['name'];
+        $this->price=$item['price'];
+        $this->qty_item=$item['qty'];
+        $this->sum_item=$item['sum'];
+        if($this->save())
+            return true;
+        else
+            return false;
+    }
 
 }

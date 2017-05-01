@@ -6,8 +6,13 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'language' => 'ru-RU',
+    'language' => 'en-En',
     //'dedaultRoute' => 'category/index',
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Module',
+        ],
+    ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -30,6 +35,15 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
+/*
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'ruslan.karpatu.2013',
+                'password' => '999412013',
+                'port' => '465',
+                'encryption' => 'tls',
+            ],*/
             'useFileTransport' => true,
         ],
         'log' => [
@@ -48,7 +62,7 @@ $config = [
             'rules' => [
                 'site/<id_category:\d+>/page/<page:\d+>' => 'site/view_category_products',
                 'site/<id_category:\d+>' => 'site/view_category_products',
-                'site/<page:\d+>' => 'site/view_all_products',
+                'site/view_all_products/<page:\d+>' => 'site/view_all_products',
                 'products/<id_product:\d+>' => 'products/view_details',
                 'search' => 'site/search',
             ],

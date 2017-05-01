@@ -162,7 +162,7 @@ class SiteController extends AppController
             'forcePageParam'=>false,
             'pageSizeParam'=>false,
         ]);
-        $productss=$request->offset($pages->offset)->limit($pages->limit)->all();
+        $productss=$request->offset($pages->offset)->limit($pages->limit)->asArray()->all();
 
         $count_record=$request->count();//передача кількості знайдених товарів
         $this->setMeta('E-Shoper|All products');
@@ -209,14 +209,16 @@ class SiteController extends AppController
     public function actionContact()
     {
         $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->contact(Yii::$app->params['siteEmail'])){
+                Yii::$app->session->setFlash('contact_success','Your letter sent to the site managers');
+                return $this->refresh();
+            }else{
+                Yii::$app->session->setFlash('contact_error','You make a mistake in filling out forms');
+                return $this->refresh();
+            }
         }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
+        return $this->render('contact', compact('model'));
     }
 
     /**

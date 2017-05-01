@@ -11,58 +11,126 @@ use yii\captcha\Captcha;
 $this->title = 'Contact';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-contact">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
-
-        <div class="alert alert-success">
-            Thank you for contacting us. We will respond to you as soon as possible.
-        </div>
-
-        <p>
-            Note that if you turn on the Yii debugger, you should be able
-            to view the mail message on the mail panel of the debugger.
-            <?php if (Yii::$app->mailer->useFileTransport): ?>
-                Because the application is in development mode, the email is not sent but saved as
-                a file under <code><?= Yii::getAlias(Yii::$app->mailer->fileTransportPath) ?></code>.
-                Please configure the <code>useFileTransport</code> property of the <code>mail</code>
-                application component to be false to enable email sending.
-            <?php endif; ?>
-        </p>
-
-    <?php else: ?>
-
-        <p>
-            If you have business inquiries or other questions, please fill out the following form to contact us.
-            Thank you.
-        </p>
-
+<div id="contact-page" class="container">
+    <div class="bg">
         <div class="row">
-            <div class="col-lg-5">
-
-                <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
-
-                    <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
-
-                    <?= $form->field($model, 'email') ?>
-
-                    <?= $form->field($model, 'subject') ?>
-
-                    <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
-
-                    <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
-                        'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-                    ]) ?>
-
-                    <div class="form-group">
-                        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-                    </div>
-
-                <?php ActiveForm::end(); ?>
-
+            <div class="col-sm-12">
+                <h2 class="title text-center">Contact <strong>Us</strong></h2>
+                <div id="gmap" class="contact-map">
+                </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="contact-form">
+                    <h2 class="title text-center">Get In Touch</h2>
 
-    <?php endif; ?>
-</div>
+                    <?php if(Yii::$app->session->hasFlash('contact_success')):?>
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <?php echo Yii::$app->session->getFlash('contact_success');?>
+                        </div>
+                    <?php else:?>
+                            <?php if(Yii::$app->session->hasFlash('contact_error')):?>
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                    <?php echo Yii::$app->session->getFlash('contact_error');?>
+                                </div>
+                            <?php endif;?>
+                    <?php endif;?>
+
+                    <?php $form_contact=ActiveForm::begin([
+                        'id'=>'main-contact-form',
+                        'options'=>[
+                            'class'=>'contact-form row'
+                        ],
+                        'method'=>'post'
+                    ])?>
+                        <div class="form-group col-md-6">
+                            <?=$form_contact->field($model,'name',[
+                                'options'=>[
+                                    'class'=>'contact-form row'
+                                ],
+                                'inputOptions' => [
+                                    'placeholder' => 'Name...',
+                                    'required'=>'required'
+                                ],
+                            ])->label(false)?>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <?=$form_contact->field($model,'email',[
+                                'options'=>[
+                                    'class'=>'contact-form row'
+                                ],
+                                'inputOptions' => [
+                                    'placeholder' => 'Email...',
+                                    'required'=>'required'
+                                ],
+                            ])->label(false)?>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <?=$form_contact->field($model,'subject',[
+                                'options'=>[
+                                    'class'=>'contact-form row'
+                                ],
+                                'inputOptions' => [
+                                    'placeholder' => 'Subject...',
+                                    'required'=>'required'
+                                ],
+                            ])->label(false)?>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <?=$form_contact->field($model,'body',[
+                                'options'=>[
+                                    'id'=>'message',
+                                    'class'=>'contact-form row'
+                                ],
+                                'inputOptions' => [
+                                    'placeholder' => 'Your Message Here...',
+                                    'required'=>'required'
+                                ],
+                            ])->textarea(['rows'=>8])->label(false)?>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <?=Html::submitButton('Submit',['class'=>'btn btn-primary pull-right'])?>
+                        </div>
+                    <?php ActiveForm::end();?>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="contact-info">
+                    <h2 class="title text-center">Contact Info</h2>
+                    <address>
+                        <p>E-Shopper Inc.</p>
+                        <p>935 W. Webster Ave New Streets Chicago, IL 60614, NY</p>
+                        <p>Newyork USA</p>
+                        <p>Mobile: +2346 17 38 93</p>
+                        <p>Fax: 1-714-252-0026</p>
+                        <p>Email: info@e-shopper.com</p>
+                    </address>
+                    <div class="social-networks">
+                        <h2 class="title text-center">Social Networking</h2>
+                        <ul>
+                            <li>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-youtube"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--/#contact-page-->

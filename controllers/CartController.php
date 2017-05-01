@@ -21,6 +21,7 @@ class CartController extends AppController
         $session=Yii::$app->session;
         $session->open();
         //unset($_SESSION['cart']);
+        $this->setMeta('E-Shoper|Cart');
         return $this->render('index',compact('session'));
     }
 
@@ -41,6 +42,7 @@ class CartController extends AppController
             $this->layout=false;
         }
 
+        $this->setMeta('E-Shoper|Add to cart');
         return $this->render('cart-modal',compact('product','qty'));
         //$session->remove('cart');
         //unset($_SESSION['cart']);
@@ -53,6 +55,7 @@ class CartController extends AppController
         $session->remove('cart');
         $session->remove('cart,qty');
         $session->remove('cart,sum');
+        $this->setMeta('E-Shoper|Cart');
         return $this->render('index',compact('session'));
     }
 
@@ -71,6 +74,8 @@ class CartController extends AppController
                 return false;
             }
         }
+
+        $this->setMeta('E-Shoper|Cart');
         return $this->render('index',compact('session'));
     }
 
@@ -89,6 +94,8 @@ class CartController extends AppController
                 return false;
             }
         }
+
+        $this->setMeta('E-Shoper|Cart');
         return $this->render('index',compact('session'));
     }
 
@@ -107,6 +114,8 @@ class CartController extends AppController
                 return false;
             }
         }
+
+        $this->setMeta('E-Shoper|Cart');
         return $this->render('index',compact('session'));
     }
 

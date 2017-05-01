@@ -5,6 +5,8 @@ namespace app\models;
 use yii\db\ActiveRecord;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
+use yii\db\Transaction;
 
 /**
  * This is the model class for table "orders".
@@ -37,6 +39,19 @@ class Orders extends ActiveRecord
         return $this->hasMany(OrderItems::className(),['order_id'=>'id']);
     }
 
+    public function behaviors(){
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                // если вместо метки времени UNIX используется datetime:
+                 'value' => new Expression('NOW()'),
+            ],
+        ];
+    }
     /**
      * @inheritdoc
      */
@@ -45,12 +60,20 @@ class Orders extends ActiveRecord
         return [
             [['name', 'email', 'phone', 'address'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
-            [['qty'], 'integer'],
+            ['qty','validateOnZero'],
             [['sum','shipping_cost','eco_tax'], 'number'],
             [['status'], 'boolean'],
             [['name', 'email', 'address','notes'], 'string', 'max' => 255],
             [['phone'], 'string', 'max' => 16],
+            ['qty','validateOnZero'],
         ];
+    }
+
+    public function validateOnZero($attribute,$params)
+    {
+        if($attribute==0){
+            $this->addError($attribute,'The field can not be zero ');
+        }
     }
 
     /**
@@ -65,5 +88,29 @@ class Orders extends ActiveRecord
             'address' => 'Address',
             'notes' => 'Notes for order',
         ];
+    }
+
+    public function saveOrderAll($mas,$qty,$sum){
+        $this->qty=$qty;
+        $this->sum=$sum;
+        $this->shipping_cost=0.0;
+        $this->eco_tax=2.0;
+        $transaction=Orders::getDb()->beginTransaction();
+        if($this->save()){
+            foreach($mas as $id=>$item){
+                $order_item=new OrderItems();
+                if(!$order_item->saveAllField($id,$item,$this->id)){
+                    //OrderItems::deleteAll(['order_id'=>$this->id]);
+                    //$this->delete();
+                    $transaction->rollBack();
+                    return false;
+                }
+            }
+            $transaction->commit();
+            return true;
+        }else {
+            $transaction->rollBack();
+            return false;
+        }
     }
 }

@@ -79,6 +79,8 @@ use yii\helpers\Url;
 
 <?php else:?>
     <div class="container">
-        <h3>Your basket is empty</h3>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            Your basket is empty
+        </div>
     </div>
 <?php endif;?>
