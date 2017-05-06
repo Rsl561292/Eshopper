@@ -63,7 +63,8 @@ class Orders extends ActiveRecord
             ['qty','validateOnZero'],
             [['sum','shipping_cost','eco_tax'], 'number'],
             [['status'], 'boolean'],
-            [['name', 'email', 'address','notes'], 'string', 'max' => 255],
+            [['name', 'email', 'address'], 'string', 'max' => 255],
+            ['notes','string'],
             [['phone'], 'string', 'max' => 16],
             ['qty','validateOnZero'],
         ];
@@ -96,6 +97,7 @@ class Orders extends ActiveRecord
         $this->shipping_cost=0.0;
         $this->eco_tax=2.0;
         $transaction=Orders::getDb()->beginTransaction();
+        //mas_print($this);
         if($this->save()){
             foreach($mas as $id=>$item){
                 $order_item=new OrderItems();

@@ -1,23 +1,58 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: AdminRus
- * Date: 05.04.2017
- * Time: 21:32
- */
 
 namespace app\models;
-use yii\db\ActiveRecord;
 
-class Category extends ActiveRecord
+use Yii;
+
+/**
+ * This is the model class for table "category".
+ *
+ * @property string $id
+ * @property string $parent_id
+ * @property string $name
+ * @property string $keywords
+ * @property string $description
+ */
+class Category extends \yii\db\ActiveRecord
 {
+    /**
+     * @inheritdoc
+     */
     public static function tableName()
     {
         return 'category';
     }
 
     public function getProduct(){
-        return $this->hasMany(Products::className(),['categoty_id'=>'id']);
+        return $this->hasMany(Products::className(),['category_id'=>'id']);
+    }
+    public function getCategory_parent(){
+        return $this->hasOne(Category::className(),['id'=>'parent_id']);
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['parent_id'], 'integer'],
+            [['name'], 'required'],
+            [['name', 'keywords', 'description'], 'string', 'max' => 255],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID category',
+            'parent_id' => 'Parent category',
+            'name' => 'Name',
+            'keywords' => 'Keywords',
+            'description' => 'Meta description',
+        ];
+    }
 }

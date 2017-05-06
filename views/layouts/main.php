@@ -103,11 +103,17 @@ LetAppAsset::register($this);
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            <!--<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>-->
+                            <!--<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>-->
                             <li><a href="<?=Url::to('/cart/index')?>"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+                            <?php if(Yii::$app->user->isGuest):?>
+                                <li><a href="<?=Url::to(['/admin'])?>"><i class="fa fa-lock"></i> Login</a></li>
+                            <?php else:?>
+                                <li><a href="<?=Url::to('/admin/orders/index')?>"><i class="fa fa-file-text"></i> Orders</a></li>
+                                <li><a href="#"><i class="fa fa-user"></i> <?=Yii::$app->user->identity['username']?></a></li>
+                                <li><a href="<?=Url::to(['/site/logout'])?>"><i class="fa fa-sign-out"></i> Logout</a></li>
+                            <?php endif;?>
+
                         </ul>
                     </div>
                 </div>
@@ -130,22 +136,24 @@ LetAppAsset::register($this);
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a href="<?=Url::home()?>" class="active">Home</a></li>
-                            <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+                            <li class="dropdown"><a href="#">Products<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a href="<?=Url::to(['/site/view_all_products'])?>">Products</a></li>
-                                    <li><a href="product-details.html">Product Details</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="<?=Url::to(['/cart/index'])?>">Cart</a></li>
-                                    <li><a href="login.html">Login</a></li>
+                                    <li><a href="<?=Url::to(['/site/view_all_products'])?>">All products</a></li>
+                                    <?php if(!Yii::$app->user->isGuest):?>
+                                        <li><a href="<?=Url::to(['/site/view_all_products'])?>">Add new product</a></li>
+                                    <?php endif;?>
                                 </ul>
                             </li>
-                            <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
+                            <?php if(!Yii::$app->user->isGuest):?>
+                            <li class="dropdown"><a href="#">Categories<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a href="blog.html">Blog List</a></li>
-                                    <li><a href="blog-single.html">Blog Single</a></li>
+                                    <li><a href="<?=Url::to('/admin/category/create')?>">Add category</a></li>
+                                    <li><a href="<?=Url::to('/admin/category/index')?>">View categories</a></li>
                                 </ul>
                             </li>
-                            <li><a href="<?=Url::to('/site/contact')?>">Contact</a></li>
+                            <?php else:?>
+                                <li><a href="<?=Url::to('/site/contact')?>">Contact</a></li>
+                            <?php endif;?>
                         </ul>
                     </div>
                 </div>
@@ -161,10 +169,11 @@ LetAppAsset::register($this);
     </div><!--/header-bottom-->
 </header><!--/header-->
 
-    <div id="body_content">
-        <?=$content;?>
-    </div><!--#body_content-->
-
+    <div class="container">
+        <div id="body_content">
+            <?=$content;?>
+        </div><!--#body_content-->
+    </div>
 <footer id="footer"><!--Footer-->
     <div class="footer-top">
         <div class="container">

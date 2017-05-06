@@ -13,6 +13,7 @@ use Yii;
 class MenuWidget extends Widget
 {
     public $tpl;
+    public $model;
     public $data;
     public $tree;
     public $menuHtml;
@@ -28,14 +29,18 @@ class MenuWidget extends Widget
 
     public function  run()
     {
-        $menuss=Yii::$app->cache->get('category_menu');
-        if ($menuss) return $menuss;
+        if($this->tpl=='menu.php'){
+            $menuss=Yii::$app->cache->get('category_menu');
+            if ($menuss) return $menuss;
+        }
 
         $this->data=Category::find()->indexBy('id')->asArray()->all();
         $this->tree=$this->getTree();
         $this->menuHtml=$this->getMenuHtml($this->tree);
 
-        Yii::$app->cache->set('categoty_menu',$this->menuHtml, 120);
+        if($this->tpl=='menu.php'){
+            Yii::$app->cache->set('categoty_menu',$this->menuHtml, 120);
+        }
         return $this->menuHtml;
     }
 
@@ -50,15 +55,15 @@ class MenuWidget extends Widget
         return $tree;
     }
 
-    protected function getMenuHtml($tree){
+    protected function getMenuHtml($tree,$tab=''){
         $str='';
         foreach($tree as $category){
-            $str.=$this->catToTemplate($category);
+            $str.=$this->catToTemplate($category,$tab);
         }
         return $str;
     }
 
-    protected function catToTemplate($category){
+    protected function catToTemplate($category,$tab){
         ob_start();
         include __DIR__.'/menu_tpl/'.$this->tpl;
         return ob_get_clean();

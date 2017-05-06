@@ -53,6 +53,17 @@ class LoginForm extends Model
         }
     }
 
+    public function validateCheckIn($attribute, $params)
+    {
+        if ($this->is_login) {
+            if (empty($this->password_repetition)) {
+                $this->addError($attribute, 'Enter your password again.');
+            }elseif(!($this->password_repetition==$this->password)){
+                $this->addError($attribute, 'Entered your password does not match.');
+            }
+        }
+    }
+
     /**
      * Logs in a user using the provided username and password.
      * @return bool whether the user is logged in successfully
@@ -60,6 +71,11 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
+            if($this->rememberMe){
+                $u=$this->getUser();
+                $u->generateAuthKey();
+                $u->save();
+            }
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
         }
         return false;

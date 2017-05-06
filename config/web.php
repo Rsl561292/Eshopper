@@ -7,10 +7,12 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'en-En',
-    //'dedaultRoute' => 'category/index',
+    //'defaultRoute' => 'category/index',
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
+            //'layout' => 'admin',
+            'defaultRoute' => 'orders/index',
         ],
     ],
     'components' => [
@@ -25,6 +27,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            //'loginUrl' => 'site'// посилання куди перейти, якщо користувач не авториований
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -70,7 +73,7 @@ $config = [
         'assetManager' => [
             'class' => 'yii\web\AssetManager',
             'linkAssets' => true,
-            'forceCopy' => YII_ENV_DEV ? true :false,
+            'forceCopy' => false,//YII_ENV_DEV ? true :
         ],
 
     ],

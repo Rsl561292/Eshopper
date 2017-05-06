@@ -74,7 +74,6 @@ use yii\helpers\Url;
 </section><!--/slider-->
 
 <section>
-    <div class="container">
         <div class="row">
             <div class="col-sm-3">
                 <div class="left-sidebar">
@@ -162,7 +161,8 @@ use yii\helpers\Url;
                 </div><!--features_items-->
                 <?php endif;?>
 
-                <div class="category-tab"><!--category-tab-->
+                <!--
+                <div class="category-tab"><!--category-tab
                     <div class="col-sm-12">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#tshirt" data-toggle="tab">T-Shirt</a></li>
@@ -448,7 +448,7 @@ use yii\helpers\Url;
                             </div>
                         </div>
                     </div>
-                </div><!--/category-tab-->
+                </div>/category-tab-->
 
                 <?php if(!empty($rec_products)):?>
                     <div class="recommended_items"><!--recommended_items-->
@@ -506,5 +506,4 @@ use yii\helpers\Url;
                 <?php endif;?>
             </div>
         </div>
-    </div>
 </section>

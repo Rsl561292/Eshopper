@@ -24,7 +24,7 @@ class AppAsset extends AssetBundle
         'css/price-range.css',
         'css/animate.css',
         'css/styles7.css',
-        'css/main7.css',
+        'css/main14.css',
         'css/responsive.css'
     ];
     public $js = [
@@ -35,7 +35,7 @@ class AppAsset extends AssetBundle
         'js/menu/jquery.cookie.js',
         'js/menu/jquery.dcjqaccordion.2.9.js',
         'js/menu/jquery.hoverIntent.minified.js',
-        'js/mymain7.js',
+        'js/mymain8.js',
 
     ];
     public $depends = [
