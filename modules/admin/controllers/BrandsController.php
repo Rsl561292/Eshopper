@@ -3,16 +3,16 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\Category;
+use app\models\Brands;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CategoryController implements the CRUD actions for Category model.
+ * BrandsController implements the CRUD actions for Brands model.
  */
-class CategoryController extends AppAdminController
+class BrandsController extends AppAdminController
 {
     /**
      * @inheritdoc
@@ -30,57 +30,52 @@ class CategoryController extends AppAdminController
     }
 
     /**
-     * Lists all Category models.
+     * Lists all Brands models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Category::find()->with('category_parent'),
+            'query' => Brands::find(),
             'pagination'=>[
                 'pageSize'=>10,
-            ],/*
-            'sort'=>[
-                'defaultOrder'=>[
-                    'name'=>SORT_ASC,
-                ]
-            ]*/
+            ],
         ]);
 
-        $this->setMeta('Adminka|List categories');
+        $this->setMeta('Adminka|List brands');
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Category model.
-     * @param string $id
+     * Displays a single Brands model.
+     * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        $this->setMeta('Adminka|Detail category');
+        $this->setMeta('Adminka|Detail brand');
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Category model.
+     * Creates a new Brands model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Category();
+        $model = new Brands();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success','Category named "'.$model->name.'" successfully created!');
-            $this->setMeta('Adminka|Detail category');
+            Yii::$app->session->setFlash('success','Brand "'.$model->name.'" successfully created!');
+            $this->setMeta('Adminka|Detail brand');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            $this->setMeta('Adminka|Create new category');
+            $this->setMeta('Adminka|Create new brand');
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -88,9 +83,9 @@ class CategoryController extends AppAdminController
     }
 
     /**
-     * Updates an existing Category model.
+     * Updates an existing Brands model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
@@ -98,11 +93,11 @@ class CategoryController extends AppAdminController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success','Changes in category number '.$model->id.' successfully saved!');
-            $this->setMeta('Adminka|Detail category');
+            Yii::$app->session->setFlash('success','Changes in brand number '.$model->id.' successfully saved!');
+            $this->setMeta('Adminka|Detail brand');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            $this->setMeta('Adminka|Update category');
+            $this->setMeta('Adminka|Update brand');
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -110,40 +105,40 @@ class CategoryController extends AppAdminController
     }
 
     /**
-     * Deletes an existing Category model.
+     * Deletes an existing Brands model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)
     {
         $model=$this->findModel($id);
-        $rez=$model->deleteCategory();
+        $rez=$model->deleteBrand();
 
         if($rez===(12)){
-            Yii::$app->session->setFlash('error','Category "'.$model->name.'" can not be deleted because products found in this category!');
+            Yii::$app->session->setFlash('error','Brand "'.$model->name.'" can not be deleted because products found in this brand!');
             $this->refresh();
         }elseif(!$rez){
-            Yii::$app->session->setFlash('error','Category "'.$model->name.'" can not be deleted because of technical problem!');
+            Yii::$app->session->setFlash('error','Brand "'.$model->name.'" can not be deleted because of technical problem!');
             $this->refresh();
         }else{
-            Yii::$app->session->setFlash('success','Category "'.$model->name.'" successfully deleted!');
+            Yii::$app->session->setFlash('success','Brand "'.$model->name.'" successfully deleted!');
         }
 
-        $this->setMeta('Adminka|List categories');
+        $this->setMeta('Adminka|List brands');
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Category model based on its primary key value.
+     * Finds the Brands model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Category the loaded model
+     * @param integer $id
+     * @return Brands the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Category::findOne($id)) !== null) {
+        if (($model = Brands::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

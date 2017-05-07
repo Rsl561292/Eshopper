@@ -2633,8 +2633,8 @@ h2.title {
   font-style: italic;
 }
 
-/*order update*/
-#form_udate_order .register-req{
+/*form update/create new date*/
+#form_udate_date .register-req{
   background:#F0F0E9;
   border: 0 none;
   border-radius: 0px;
@@ -2646,9 +2646,9 @@ h2.title {
   margin-bottom: 50px;
 }
 
-#form_udate_order .shopper-informations .shopper-info .form-group  input,
-#form_udate_order .shopper-informations .shopper-info .form-group  select,
-#form_udate_order .order-message  .form-group  input{
+#form_udate_date .shopper-informations .shopper-info .form-group  input,
+#form_udate_date .shopper-informations .shopper-info .form-group  select,
+#form_udate_date .order-message  .form-group  input{
   background:#F0F0E9;
   border: 0 none;
   border-radius: 0px;
@@ -2659,17 +2659,19 @@ h2.title {
 }
 
 
-#form_udate_order .order-message .form-group label,
-#form_udate_order .shopper-informations .shopper-info .form-group label{
+#form_udate_date .order-message .form-group label,
+#form_udate_date .shopper-informations .shopper-info .form-group label{
   color: #696763;
   font-size: 20px;
   font-weight: 300;
   margin-left: 5px;
 }
-#form_udate_order .shopper-informations {
+#form_udate_date .shopper-informations {
   margin-bottom: 70px;
 }
-#form_udate_order .shopper-informations .btn {
+#form_udate_date .shopper-informations .btn {
   margin-top: -12px;
   float: right;
+  border: 0 none;
+  border-radius: 0;
 }

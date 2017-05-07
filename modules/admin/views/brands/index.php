@@ -6,11 +6,9 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Categories';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="category-index">
-
+<div class="brands-index">
 
     <?php if(Yii::$app->session->hasFlash('success')):?>
         <div class="alert alert-success alert-dismissible" role="alert">
@@ -29,12 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php endif?>
 
     <div class="title_page_list">
-        <h1>List categories...</h1>
+        <h1>List brands...</h1>
         <p>
-            <?= Html::a('Create new category', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Create new brand', ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     </div>
-
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -42,16 +39,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            [
-                'attribute'=>'parent_id',
-                'value'=>function($data){
-                    return $data->category_parent->name?$data->category_parent->name : 'Independent category';
-                }
-            ],
-            //'parent_id',
             'name',
+            'count',
             'keywords',
             'description',
+            // 'coment',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -23,8 +23,8 @@ class AppAsset extends AssetBundle
         'css/prettyPhoto.css',
         'css/price-range.css',
         'css/animate.css',
-        'css/styles7.css',
-        'css/main14.css',
+        'css/styles14.css',
+        'css/main15.css',
         'css/responsive.css'
     ];
     public $js = [

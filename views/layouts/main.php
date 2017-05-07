@@ -145,12 +145,18 @@ LetAppAsset::register($this);
                                 </ul>
                             </li>
                             <?php if(!Yii::$app->user->isGuest):?>
-                            <li class="dropdown"><a href="#">Categories<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="<?=Url::to('/admin/category/create')?>">Add category</a></li>
-                                    <li><a href="<?=Url::to('/admin/category/index')?>">View categories</a></li>
-                                </ul>
-                            </li>
+                                <li class="dropdown"><a href="#">Categories<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="<?=Url::to('/admin/category/index')?>">View categories</a></li>
+                                        <li><a href="<?=Url::to('/admin/category/create')?>">Add category</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#">Brands<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="<?=Url::to('/admin/brands/index')?>">All brands</a></li>
+                                        <li><a href="<?=Url::to('/admin/brands/create')?>">Add new brand</a></li>
+                                    </ul>
+                                </li>
                             <?php else:?>
                                 <li><a href="<?=Url::to('/site/contact')?>">Contact</a></li>
                             <?php endif;?>

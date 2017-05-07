@@ -4,12 +4,12 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Category */
+/* @var $model app\models\Brands */
 
-$this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Brands', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="details_view_information">
+<div class="brands-view details_view_information">
 
     <?php if(Yii::$app->session->hasFlash('success')):?>
         <div class="alert alert-success alert-dismissible" role="alert">
@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-xm-12 col-sm-8">
-            <h1>Details category: <span><?= Html::encode($model->name) ?></span></h1>
+            <h1>Details brand: <span><?= Html::encode($model->name) ?></span></h1>
         </div>
 
         <div class="col-xm-12 col-sm-4">
@@ -43,14 +43,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            [
-                'attribute'=>'parent_id',
-                'value'=> $model->category_parent->name?$model->category_parent->name : 'Independent category',
-            ],
-            //'parent_id',
             'name',
+            'count',
             'keywords',
             'description',
+            'coment',
         ],
     ]) ?>
 

@@ -87,3 +87,25 @@ h4 .notproducts{
     padding-left: 0;
     padding-right: 0;
 }
+
+.title_page_list{
+    display: inline-block;
+    line-height: 80px;
+    border-bottom: 2px;
+    border-color: #761c19;
+    width: 100%;
+    padding: 1px 10px;
+
+}
+.title_page_list h1{
+    display: inline-block;
+    float: left;
+}
+.title_page_list p{
+    display: inline-block;
+    float: right;
+}
+.title_page_list p.btn-success{
+    margin-top: 30px;
+    height: 20px;
+}

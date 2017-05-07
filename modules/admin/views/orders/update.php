@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="orders-update">
-    <div id="form_udate_order">
+    <div id="form_udate_date">
         <div class="register-req">
             <p>You updating order number <?=$model->id?>.</p>
         </div><!--/register-req-->
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = 'Update';
                             'inputOptions' => [
                                 'placeholder' => 'Please enter notes for order...',
                             ],
-                        ])->textarea(['rows'=>5])->textInput(['maxlength' => true]) ?>
+                        ])->textarea(['rows'=>10]) ?>
                     </div>
                 </div>
             </div>

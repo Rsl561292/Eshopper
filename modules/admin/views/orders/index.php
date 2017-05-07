@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="orders-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>List orders...</h1>
 
     <?php if(Yii::$app->session->hasFlash('success')):?>
         <div class="alert alert-success alert-dismissible" role="alert">

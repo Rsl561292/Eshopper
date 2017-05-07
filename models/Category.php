@@ -55,4 +55,17 @@ class Category extends \yii\db\ActiveRecord
             'description' => 'Meta description',
         ];
     }
+
+    public function deleteCategory(){
+        $rez=Products::find()->where(['category_id'=>$this->id])->count();
+        if($rez==0){
+            if($this->delete()){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return 12;
+        }
+    }
 }
