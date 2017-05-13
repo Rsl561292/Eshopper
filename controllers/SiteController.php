@@ -69,9 +69,9 @@ class SiteController extends AppController
      */
     public function actionIndex()
     {
-        $hit_mas=Products::find()->where(['hit'=>'1'])->limit(9)->asArray()->all();
+        $hit_mas=Products::find()->where(['hit'=>'1'])->limit(9)->all();
         //mas_print($hit_mas);
-        $rec_products=Products::find()->where(['recommended'=>'1'])->asArray()->all();
+        $rec_products=Products::find()->where(['recommended'=>'1'])->all();
         $this->setMeta('E-Shoper');
         return $this->render('index',compact('hit_mas','rec_products'));
     }
@@ -99,6 +99,7 @@ class SiteController extends AppController
         ]);
         $productss=$request->offset($pages->offset)->limit($pages->limit)->all();
 
+        mas_print($productss);
         $count_record=$request->count();//передача кількості знайдених товарів
         $this->setMeta('E-Shoper|Category: '.$category->name,$category->keywords,$category->description);
         return $this->render('view_category_products',compact('productss','pages','count_record', 'category'));

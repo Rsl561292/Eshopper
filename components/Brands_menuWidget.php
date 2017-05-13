@@ -15,6 +15,7 @@ class Brands_menuWidget extends Widget
     public $tpl;
     public $menuHtml;
     public $data;
+    public $model;
 
     public function init()
     {
@@ -27,13 +28,18 @@ class Brands_menuWidget extends Widget
 
     public function  run()
     {
-        $menuss=Yii::$app->cache->get('brand_menu');
-        if ($menuss) return $menuss;
+        if($this->tpl=='brand_menu.php'){
+            $menuss=Yii::$app->cache->get('brand_menu');
+            if ($menuss) return $menuss;
+        }
 
-        $this->data=Brands::find()->indexBy('id')->asArray()->all();
+
+        $this->data=Brands::find()->asArray()->all();
         $this->menuHtml=$this->getMenuHtml($this->data);
 
-        Yii::$app->cache->set('brand_menu',$this->menuHtml, 600);
+        if($this->tpl=='brand_menu.php'){
+            Yii::$app->cache->set('brand_menu',$this->menuHtml, 600);
+        }
         return $this->menuHtml;
     }
 

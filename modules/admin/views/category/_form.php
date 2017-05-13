@@ -13,7 +13,7 @@ use app\models\Category;
 <div class="category-form">
     <div id="form_udate_order">
         <div class="register-req">
-            <p><?=!$model->isNewRecord ?'You updating category number  '.$model->id: 'You create new category'?>.</p>
+            <p><?=!$model->isNewRecord ?'You updating category id  '.$model->id: 'You create new category'?>.</p>
         </div><!--/register-req-->
 
 

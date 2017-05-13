@@ -138,9 +138,10 @@ LetAppAsset::register($this);
                             <li><a href="<?=Url::home()?>" class="active">Home</a></li>
                             <li class="dropdown"><a href="#">Products<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a href="<?=Url::to(['/site/view_all_products'])?>">All products</a></li>
+                                    <li><a href="<?=Url::to(['/site/view_all_products'])?>">All products for order</a></li>
                                     <?php if(!Yii::$app->user->isGuest):?>
-                                        <li><a href="<?=Url::to(['/site/view_all_products'])?>">Add new product</a></li>
+                                        <li><a href="<?=Url::to('/admin/products/index')?>">List all products</a></li>
+                                        <li><a href="<?=Url::to('/admin/products/create')?>">Add new product</a></li>
                                     <?php endif;?>
                                 </ul>
                             </li>

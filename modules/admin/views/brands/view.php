@@ -44,10 +44,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'count',
             'keywords',
             'description',
-            'coment',
+            'coment:html',
         ],
     ]) ?>
 

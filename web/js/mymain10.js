@@ -116,3 +116,63 @@ $(document).off('click.mrUpProduct')
     });
     return false;
 })
+
+
+
+//change main image
+
+function showGalleryImages(res){
+    $('#row_images .add_block').html(res);
+}
+
+$(document).off('click.markImage')
+    .on('click.markImage','.btn_mark',function(e){
+        e.preventDefault();
+        var id_product=$(this).data('id_product'),
+            id_change=$(this).data('id_image');
+
+        $.ajax({
+            url: '/admin/products/do_main_image',
+            data:{id_product:id_product,
+                id_change:id_change},
+            type:'GET',
+            success:function(res){
+                if(res==false){
+                    showWindowMessage('Error! Assign new main image failed. Please refresh page and try again');
+                    return false;
+                }
+                showWindowMessage('Success! Assign new main image be success and change saved in database site.');
+                showGalleryImages(res);
+            },
+            error:function(){
+                showWindowMessage('Error connecting while assign new main image.'+res);
+            }
+        });
+        return false;
+    })
+
+$(document).off('click.deleteImage')
+    .on('click.deleteImage','.btn_delete',function(e){
+        e.preventDefault();
+        var id_product=$(this).data('id_product'),
+            id_change=$(this).data('id_image');
+
+        $.ajax({
+            url: '/admin/products/delete_image',
+            data:{id_product:id_product,
+                id_change:id_change},
+            type:'GET',
+            success:function(res){
+                if(res==false){
+                    showWindowMessage('Error! Please refresh page and try again.');
+                    return false;
+                }
+                showWindowMessage('Success! Image be successfully removed and change saved in database site.');
+                showGalleryImages(res);
+            },
+            error:function(){
+                showWindowMessage('Error connecting while assign new main image.'+res);
+            }
+        });
+        return false;
+    })

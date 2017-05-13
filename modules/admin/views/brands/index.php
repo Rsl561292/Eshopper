@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'count',
             'keywords',
             'description',
             // 'coment',

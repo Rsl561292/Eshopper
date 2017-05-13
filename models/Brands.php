@@ -16,6 +16,14 @@ use Yii;
  */
 class Brands extends \yii\db\ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            'image' => [
+                'class' => 'rico\yii2images\behaviors\ImageBehave',
+            ]
+        ];
+    }
     /**
      * @inheritdoc
      */
@@ -36,9 +44,9 @@ class Brands extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['count'], 'integer'],
+            [['coment'], 'string'],
             [['name'], 'string', 'max' => 60],
-            [['keywords', 'description', 'coment'], 'string', 'max' => 255],
+            [['keywords', 'description'], 'string', 'max' => 255],
         ];
     }
 
@@ -50,7 +58,6 @@ class Brands extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'count' => 'Count product brand',
             'keywords' => 'Keywords',
             'description' => 'Meta description',
             'coment' => 'Description brand',

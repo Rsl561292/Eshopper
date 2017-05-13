@@ -74,8 +74,9 @@ use yii\widgets\LinkPager;
 
                                             <?php
                                             if($product['new']=='1'){
-                                                echo Html::img('@web/images/home/new.png', ['alt' => 'New', 'class' => 'new']);
-                                            }elseif($product['sale']=='1'){
+                                                echo Html::img('@web/images/home/new_left.png', ['alt' => 'New', 'class' => 'newarrival']);
+                                            }
+                                            if($product['sale']=='1'){
                                                 echo Html::img('@web/images/home/sale.png', ['alt' => 'Sale', 'class' => 'new']);
                                             }
                                             ?>

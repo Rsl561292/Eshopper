@@ -109,3 +109,62 @@ h4 .notproducts{
     margin-top: 30px;
     height: 20px;
 }
+
+
+.container_detail_product{
+    margin: 10px;
+}
+
+
+/*product _form// product/update ///#row_images*/
+#row_images{
+    margin-bottom: 30px;
+}
+#row_images .image_item{
+    float: left;
+
+    background-color: transparent;
+    padding: 5px;
+    margin: 2px;
+    position: relative;
+}
+#row_images .image_block{
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid;
+    border-color: #9e9e9e;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+#row_images .image_block img{
+    text-align: center;
+}
+#row_images .btn_block{
+    display: block;
+    float: none;
+    margin-top: 15px;
+}
+#form_udate_date .shopper-informations #row_images .btn{
+
+}
+
+
+
+
+#row_images .add_image_block{
+    float: left;
+
+    background-color: transparent;
+    padding: 5px;
+    margin: 10px;
+    margin-top: 25px;
+}
+
+.gallery_block{
+    display: inline-block;
+    line-height: 106px;
+    width: 100%;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-color: #9e9e9e;
+}
