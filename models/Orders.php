@@ -60,19 +60,20 @@ class Orders extends ActiveRecord
         return [
             [['name', 'email', 'phone', 'address'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
+            [['qty'], 'integer'],
             ['qty','validateOnZero'],
             [['sum','shipping_cost','eco_tax'], 'number'],
             [['status'], 'boolean'],
             [['name', 'email', 'address'], 'string', 'max' => 255],
+            ['email','email'],
             ['notes','string'],
             [['phone'], 'string', 'max' => 16],
-            ['qty','validateOnZero'],
         ];
     }
 
     public function validateOnZero($attribute,$params)
     {
-        if($attribute==0){
+        if($attribute===0){
             $this->addError($attribute,'The field can not be zero ');
         }
     }
@@ -96,9 +97,9 @@ class Orders extends ActiveRecord
         $this->sum=$sum;
         $this->shipping_cost=0.0;
         $this->eco_tax=2.0;
-        $transaction=Orders::getDb()->beginTransaction();
+        $transaction=Yii::$app->db->beginTransaction();
         //mas_print($this);
-        if($this->save()){
+        if($this->save()==true){
             foreach($mas as $id=>$item){
                 $order_item=new OrderItems();
                 if(!$order_item->saveAllField($id,$item,$this->id)){
@@ -112,6 +113,8 @@ class Orders extends ActiveRecord
             return true;
         }else {
             $transaction->rollBack();
+            //echo 'Error';
+            mas_print($this->getErrors());
             return false;
         }
     }

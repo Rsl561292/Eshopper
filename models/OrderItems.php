@@ -28,7 +28,7 @@ class OrderItems extends ActiveRecord
     }
 
     public function getOrders(){
-        return$this->hasOne(Orders::className(),['id'=>'order_is']);
+        return $this->hasOne(Orders::className(),['id'=>'order_id']);
     }
     /**
      * @inheritdoc
@@ -46,7 +46,7 @@ class OrderItems extends ActiveRecord
 
     public function validateOnZero($attribute,$params)
     {
-        if($attribute==0){
+        if($attribute===0){
             $this->addError($attribute,'The field can not be zero ');
         }
     }

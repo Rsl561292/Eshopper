@@ -10,7 +10,6 @@ namespace app\controllers;
 
 
 use app\models\Orders;
-use app\models\OrderItems;
 use Yii;
 
 class OrdersssController extends AppController
