@@ -20,6 +20,8 @@ $('.add-to-cart').on('click',function(e){
     e.preventDefault();
     var id_add=$(this).data('id_add')
         qty=$('#qty').val();
+    //alert('Data='+id_add);
+    //return true;
     $.ajax({
         url: '/cart/add',
         data:{id_add:id_add,qty:qty},

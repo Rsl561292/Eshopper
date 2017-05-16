@@ -13,14 +13,26 @@ use yii\db\ActiveRecord;
 
 class Cart extends ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            'image' => [
+                'class' => 'rico\yii2images\behaviors\ImageBehave',
+            ]
+        ];
+    }
+
+
     public function addToCart($product, $qty=1){
         if($_SESSION['cart'][$product->id]){
             $_SESSION['cart'][$product->id]['qty']+=$qty;
             $_SESSION['cart'][$product->id]['sum']+=$qty*$product->price;
-        }else{$_SESSION['cart'][$product->id]=[
+        }else{
+            $img=$product->getImage();
+            $_SESSION['cart'][$product->id]=[
             'qty'=>$qty,
             'name'=>$product->name,
-            'img'=>$product->img,
+            'img'=>$img->getUrl('x80'),
             'price'=>$product->price,
             'sum'=>$product->price*$qty
         ];

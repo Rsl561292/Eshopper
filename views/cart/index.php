@@ -21,8 +21,9 @@ use yii\helpers\Url;
                     <tbody>
                         <?php foreach($session['cart'] as $id=>$items):?>
                             <tr>
-                                <td class="table_item_photo"><?=Html::img('@web/images/products/'.$items['img'],
-                                        ['alt'=>'Image product'])?></td>
+                                <td class="table_item_photo">
+                                    <?=Html::img($items['img'],['alt'=>'Image product'])?>
+                                </td>
                                 <td class="cart_description">
                                     <h4><a href="<?=Url::to(['products/view_details','id_product'=>$id])?>"><?=$items['name']?></a></h4>
                                     <p>Web ID: <?=$id?></p>

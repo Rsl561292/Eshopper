@@ -25,7 +25,7 @@ class ProductsController extends AppController
             throw new HttpException(404,'Selection of the product does not exist!');
         }
 
-        $rec_products=Products::find()->where(['recommended'=>'1','category_id'=>$product->category_id])->asArray()->all();
+        $rec_products=Products::find()->where(['recommended'=>'1','category_id'=>$product->category_id])->all();
         return $this->render('view_details',compact('product','rec_products'));
 
     }

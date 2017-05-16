@@ -6,6 +6,7 @@ use app\components\MenuWidget;
 use app\components\Brands_menuWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\LinkPager;
 ?>
 
 <section id="slider"><!--slider-->
@@ -122,7 +123,7 @@ use yii\helpers\Url;
                                 <div class="single-products">
                                     <div class="productinfo text-center">
                                         <?php $img=$hit->getImage();
-                                                echo Html::img($img->getUrl('x249'),['alt'=>'Image product'])?>
+                                                echo Html::img($img->getUrl('x240'),['alt'=>'Image product'])?>
                                         <h2>$<?=$hit->price?></h2>
                                         <p><a href="<?=Url::to(['products/view_details','id_product'=>$hit->id])?>" class="product_url"><?=$hit->name?></a></p>
                                         <a href="<?=Url::to(['cart/add','id_add'=>$hit->id])?>" data-id_add="<?=$hit->id?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
@@ -159,6 +160,15 @@ use yii\helpers\Url;
                             }
                         ?>
                     <?php endforeach;?>
+                        <?php
+                        if(!($kl==0)) {
+                            echo '</div >';
+                        }
+                        // display pagination
+                        echo LinkPager::widget([
+                            'pagination' => $pages,
+                        ]);
+                        ?>
 
                 </div><!--features_items-->
                 <?php endif;?>
@@ -478,7 +488,7 @@ use yii\helpers\Url;
                                             <div class="single-products">
                                                 <div class="productinfo text-center">
                                                     <?php $img=$rec_product->getImage();
-                                                            echo Html::img($img->getUrl('x249'),['alt'=>'Image product'])?>
+                                                            echo Html::img($img->getUrl('x180'),['alt'=>'Image product'])?>
                                                     <h2>$<?=$rec_product->price?></h2>
                                                     <p><a href="<?=Url::to(['products/view_details','id_product'=>$rec_product->id])?>" class="product_url"><?=$rec_product->name?></a></p>
                                                     <a href="<?=Url::to(['cart/add','id_add'=>$rec_product->id])?>" data-id_add="<?=$rec_product->id?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>

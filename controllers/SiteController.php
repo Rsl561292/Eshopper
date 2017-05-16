@@ -16,6 +16,8 @@ use app\models\Products;
 use app\models\Brands;
 use yii\helpers\Html;
 use yii\web\HttpException;
+use yii\data\ActiveDataProvider;
+
 
 class SiteController extends AppController
 {
@@ -69,11 +71,19 @@ class SiteController extends AppController
      */
     public function actionIndex()
     {
-        $hit_mas=Products::find()->where(['hit'=>'1'])->limit(9)->all();
+        $request=Products::find()->where(['hit'=>'1']);
+
+        $pages=new Pagination([
+            'totalCount' => $request->count(),
+            'pageSize'=>9,
+            'forcePageParam'=>false,
+            'pageSizeParam'=>false,
+        ]);
+        $hit_mas=$request->offset($pages->offset)->limit($pages->limit)->all();
         //mas_print($hit_mas);
         $rec_products=Products::find()->where(['recommended'=>'1'])->all();
         $this->setMeta('E-Shoper');
-        return $this->render('index',compact('hit_mas','rec_products'));
+        return $this->render('index',compact('hit_mas','pages','rec_products'));
     }
 
     /**
@@ -99,7 +109,7 @@ class SiteController extends AppController
         ]);
         $productss=$request->offset($pages->offset)->limit($pages->limit)->all();
 
-        mas_print($productss);
+        //mas_print($productss);
         $count_record=$request->count();//передача кількості знайдених товарів
         $this->setMeta('E-Shoper|Category: '.$category->name,$category->keywords,$category->description);
         return $this->render('view_category_products',compact('productss','pages','count_record', 'category'));
@@ -137,13 +147,14 @@ class SiteController extends AppController
         }
 
         $request=Products::find()->where(['like','name',$search_query]);
+
         $pages=new Pagination([
             'totalCount' => $request->count(),
             'pageSize'=>9,
             'forcePageParam'=>false,
             'pageSizeParam'=>false,
         ]);
-        $productss=$request->offset($pages->offset)->limit($pages->limit)->asArray()->all();
+        $productss=$request->offset($pages->offset)->limit($pages->limit)->all();
 
         $count_record=$request->count();//передача кількості знайдених товарів
         return $this->render('search',compact('productss','pages','count_record', 'search_query'));
@@ -157,14 +168,23 @@ class SiteController extends AppController
     public function actionView_all_products()
     {
         $request=Products::find();
+
         $pages=new Pagination([
             'totalCount' => $request->count(),
             'pageSize'=>9,
             'forcePageParam'=>false,
             'pageSizeParam'=>false,
         ]);
-        $productss=$request->offset($pages->offset)->limit($pages->limit)->asArray()->all();
+        $productss=$request->offset($pages->offset)->limit($pages->limit)->all();
+/*
+        $pages = new ActiveDataProvider([
+            'query' => $request,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
 
+        $productss=$pages->getModels();*/
         $count_record=$request->count();//передача кількості знайдених товарів
         $this->setMeta('E-Shoper|All products');
         return $this->render('view_all_products',compact('productss','pages','count_record'));

@@ -19,8 +19,9 @@ use yii\helpers\Url;
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="table_item_photo"><?=Html::img('@web/images/products/'.$product->img,
-                                    ['alt'=>'Image product'])?></td>
+                            <td class="table_item_photo">
+                                <?php $img=$product->getImage();
+                                    echo Html::img($img->getUrl('x80'),['alt'=>'Image product'])?></td>
                             <td class="cart_description">
                                 <h4><a href="<?=Url::to(['products/view_details','id_product'=>$product->id])?>"><?=$product->name?></a></h4>
                                 <p>Web ID: <?=$product->id?></p>

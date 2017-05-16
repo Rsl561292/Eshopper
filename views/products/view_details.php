@@ -40,7 +40,7 @@ use yii\helpers\Url;
                         <div class="view-product">
                             <?php
                                 $img=$product->getImage();
-                                echo Html::img($img->getUrl(),['alt'=>'Main image product']);?>
+                                echo Html::img($img->getUrl('x270'),['alt'=>'Main image product']);?>
                             <h3>ZOOM</h3>
                         </div>
 
@@ -62,7 +62,7 @@ use yii\helpers\Url;
                                             }
                                             $index_item++;
                                         }
-                                                echo '<a href=""><img src='.$item_img->getUrl("80x").' alt="img"></a>';
+                                                echo '<a href=""><img src='.$item_img->getUrl('x80').' alt="img"></a>';
 
                                         if($index==3){
                                             echo '</div>';
@@ -202,17 +202,19 @@ use yii\helpers\Url;
                                             <div class="product-image-wrapper">
                                                 <div class="single-products">
                                                     <div class="productinfo text-center">
-                                                        <?= Html::img('@web/images/products/'.$rec_product['img'],['alt'=>'Image product'])?>
-                                                        <h2>$<?=$rec_product['price']?></h2>
-                                                        <p><a href="<?=Url::to(['products/view_details','id_product'=>$rec_product['id']])?>" class="product_url"><?=$rec_product['name']?></a></p>
-                                                        <a href="<?=Url::to(['cart/add','id_add'=>$rec_product['id']])?>" data-id_add="<?=$rec_product['id']?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                        <?php
+                                                            $img=$rec_product->getImage();
+                                                                echo Html::img($img->getUrl('x180'),['alt'=>'Main image product']);?>
+                                                        <h2>$<?=$rec_product->price?></h2>
+                                                        <p><a href="<?=Url::to(['products/view_details','id_product'=>$rec_product->id])?>" class="product_url"><?=$rec_product->name?></a></p>
+                                                        <a href="<?=Url::to(['cart/add','id_add'=>$rec_product->id])?>" data-id_add="<?=$rec_product->id?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                     </div>
 
                                                     <?php
-                                                        if($rec_product['new']=='1'){
+                                                        if($rec_product->new=='1'){
                                                             echo Html::img('@web/images/home/new_left.png', ['alt' => 'New', 'class' => 'newarrival']);
                                                         }
-                                                        if($rec_product['sale']=='1'){
+                                                        if($rec_product->sale=='1'){
                                                             echo Html::img('@web/images/home/sale.png', ['alt' => 'Sale', 'class' => 'new']);
                                                         }
                                                     ?>
